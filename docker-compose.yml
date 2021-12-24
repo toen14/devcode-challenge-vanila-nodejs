@@ -1,0 +1,25 @@
+version: '3'
+services:
+    database-mysql:
+        image: mysql
+        environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_DATABASE=vanilla-backend
+          - MYSQL_HOST=vanilla-backend
+        #   - MYSQL_USER=root
+        ports:
+          - 3306:3306
+    vanilla-backend:
+        # image: toen14/devcode:vanilla-node-0.0.2
+        build: .
+        restart: always
+        ports:
+            - 3030:8090
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_HOST=localhost
+            - MYSQL_PORT=3306
+            - MYSQL_DBNAME=ardiman_tando
+        depends_on:
+            - database-mysql

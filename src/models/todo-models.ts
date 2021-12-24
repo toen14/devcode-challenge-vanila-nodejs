@@ -26,7 +26,7 @@ class Todos {
    * Find all Todos
    */
   public findTodos(id?: number): Promise<any> {
-    let q = id ? `WHERE id = ${id}` : '';
+    const q = id ? `WHERE id = ${id}` : '';
     return new Promise(resolve => {
       // , IF(is_active = 'true', true, false) as is_active
       this.connection.query(`SELECT * FROM ${tableName} ${q}`, (err, res) => {
@@ -46,7 +46,8 @@ class Todos {
    */
   public createTodo(data: any): Promise<any> {
     return new Promise(resolve => {
-      this.connection.query(`
+      this.connection.query(
+        `
         INSERT INTO ${tableName} (activity_group_id, title)
         VALUES ('${data.activity_group_id}', '${data.title}');
         SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()
@@ -91,9 +92,10 @@ class Todos {
    */
   public updateTodo(data: any, id: number): Promise<any> {
     return new Promise(resolve => {
-      let k = data.title ? 'title' : 'is_active';
+      const k = data.title ? 'title' : 'is_active';
 
-      this.connection.query(`
+      this.connection.query(
+        `
         UPDATE ${tableName}
         SET ${k} = '${data.title ?? data.is_active}'
         WHERE id = ?; 

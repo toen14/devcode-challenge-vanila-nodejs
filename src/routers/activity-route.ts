@@ -7,7 +7,6 @@ export function activityRouter(
   res: ServerResponse
 ): void {
   if (req.url === '/activity-groups' && req.method === 'GET') {
-    console.log(1)
     activityController.index(res);
   } else if (req.url === '/activity-groups' && req.method === 'POST') {
     activityController.store(req, res);

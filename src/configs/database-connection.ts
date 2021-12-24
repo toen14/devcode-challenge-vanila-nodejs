@@ -11,3 +11,13 @@ export default createConnection({
   database,
   multipleStatements: true,
 });
+
+// export default createPool({
+//   host,
+//   port: mysqlPort as number,
+//   user,
+//   password,
+//   database,
+//   multipleStatements: true,
+//   connectionLimit: 10,
+// })

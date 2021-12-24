@@ -48,7 +48,7 @@ export async function update(
   // data validations
   // if (!data.title) {
   //   throw new ValidationError('title connot be null', res);
-  // } 
+  // }
 
   const todo = await todoModel.updateTodo(data, id);
 

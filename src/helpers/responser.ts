@@ -7,7 +7,6 @@ export function successRespon<T>(
   res: ServerResponse,
   statusCode = 200
 ) {
-  console.log('res');
   res
     .writeHead(statusCode, {
       'Content-Type': 'application/json',
