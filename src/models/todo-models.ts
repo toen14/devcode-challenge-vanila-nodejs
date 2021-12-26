@@ -97,7 +97,9 @@ class Todos {
       this.connection.query(
         `
         UPDATE ${tableName}
-        SET ${k} = '${data.title ?? data.is_active}'
+        SET ${k} = '${
+          data.title ?? data.is_active
+        }', updated_at = CURRENT_TIMESTAMP()
         WHERE id = ?; 
         SELECT * FROM ${tableName}
         WHERE id = ?
@@ -122,11 +124,8 @@ class Todos {
   public deleteTodo(id: number): Promise<any> {
     return new Promise(resolve => {
       this.connection.query(
-        `
-        SELECT * FROM ${tableName} WHERE id = ?;
-        DELETE FROM ${tableName} WHERE id = ?
-        `,
-        [id, id],
+        `DELETE FROM ${tableName} WHERE id = ?`,
+        [id],
         (err, res) => {
           if (err) {
             throw err;

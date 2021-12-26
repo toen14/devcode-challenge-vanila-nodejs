@@ -58,9 +58,9 @@ export async function update(
 export async function destroy(res: ServerResponse, id: number) {
   const activity = await activityModel.deleteActivity(id);
 
-  if (!activity[1].affectedRows) {
+  if (!activity.affectedRows) {
     throw new NotFoundError(`Activity with ID ${id} Not Found`, res);
   }
 
-  successRespon(activity[0][0], res);
+  successRespon({}, res);
 }

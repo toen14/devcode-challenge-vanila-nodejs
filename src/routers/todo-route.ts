@@ -3,12 +3,16 @@ import {IncomingMessage, ServerResponse} from 'http';
 import * as todoController from '../controllers/todo-controller';
 
 export function todoRouter(req: IncomingMessage, res: ServerResponse): void {
-  if (req.url! === '/todo-items' && req.method === 'GET') {
-    let id: number | undefined;
-    if (req.url?.match(/\/todo-items\?([a-zA-Z]+(_[a-zA-Z]+)+)=\d/)) {
-      id = parseInt(req.url.split('=')[1]);
+  if (
+    (req.url === '/todo-items' && req.method === 'GET') ||
+    req.url!.split('=')[1]
+  ) {
+    let id: number | undefined = parseInt(req.url!.split('=')[1]);
+
+    if (isNaN(id)) {
+      id = undefined;
     }
-    console.log('i');
+
     todoController.index(res, id);
   } else if (req.url === '/todo-items' && req.method === 'POST') {
     todoController.store(req, res);

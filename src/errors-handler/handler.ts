@@ -4,6 +4,7 @@ import {errorRespon} from '../helpers/responser';
 export function handler() {
   process.on('uncaughtException', (err: BaseError | Error) => {
     if (err.message === 'write after end') {
+      // skip
     } else if (err.message === '') {
       errorRespon(err as BaseError);
     } else {
@@ -13,6 +14,7 @@ export function handler() {
 
   process.on('unhandledRejection', (err: BaseError | Error) => {
     if (err.message === 'write after end') {
+      // skip
     } else if (err.message === '') {
       errorRespon(err as BaseError);
     } else {

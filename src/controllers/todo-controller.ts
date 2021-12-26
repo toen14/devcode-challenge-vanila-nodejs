@@ -62,9 +62,9 @@ export async function update(
 export async function destroy(res: ServerResponse, id: number) {
   const todo = await todoModel.deleteTodo(id);
 
-  if (!todo[1].affectedRows) {
+  if (!todo.affectedRows) {
     throw new NotFoundError(`Todo with ID ${id} Not Found`, res);
   }
 
-  successRespon(todo[0][0], res);
+  successRespon({}, res);
 }

@@ -46,7 +46,7 @@ class Activitys {
         `
         INSERT INTO ${tableName} (email, title)
         VALUES ('${data.email}', '${data.title}');
-        SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()
+        SELECT id, email, title, updated_at, created_at FROM ${tableName} WHERE id = LAST_INSERT_ID()
       `,
         (err, res) => {
           if (err) {
@@ -89,10 +89,7 @@ class Activitys {
   public updateActivity(data: any, id: number): Promise<any> {
     return new Promise(resolve => {
       this.connection.query(
-        `
-        UPDATE ${tableName}
-        SET title = '${data.title}'
-        WHERE id = ?; 
+        `UPDATE ${tableName} SET title = '${data.title}', updated_at = CURRENT_TIMESTAMP() WHERE id = ?; 
         SELECT * FROM ${tableName}
         WHERE id = ?
       `,
@@ -116,11 +113,8 @@ class Activitys {
   public deleteActivity(id: number): Promise<any> {
     return new Promise(resolve => {
       this.connection.query(
-        `
-        SELECT * FROM ${tableName} WHERE id = ?;
-        DELETE FROM ${tableName} WHERE id = ?
-        `,
-        [id, id],
+        `DELETE FROM ${tableName} WHERE id = ?`,
+        [id],
         (err, res) => {
           if (err) {
             throw err;
