@@ -93,13 +93,12 @@ class Todos {
   public updateTodo(data: any, id: number): Promise<any> {
     return new Promise(resolve => {
       const k = data.title ? 'title' : 'is_active';
+      const v = data.title ? `'${data.title}'` : data.is_active;
 
       this.connection.query(
         `
         UPDATE ${tableName}
-        SET ${k} = '${
-          data.title ?? data.is_active
-        }', updated_at = CURRENT_TIMESTAMP()
+        SET ${k} = ${v}, updated_at = CURRENT_TIMESTAMP()
         WHERE id = ?; 
         SELECT * FROM ${tableName}
         WHERE id = ?

@@ -2,7 +2,7 @@ import {Connection} from 'mysql2';
 
 import connection from '../configs/database-connection';
 
-export const tableName = 'activitys';
+export const tableName = 'activities';
 
 export interface IActivitys {
   id: number;

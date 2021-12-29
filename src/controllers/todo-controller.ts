@@ -16,14 +16,16 @@ export async function store(req: IncomingMessage, res: ServerResponse) {
 
   // data validations
   if (!data.title) {
-    throw new ValidationError('title connot be null', res);
+    throw new ValidationError('title cannot be null', res);
   }
 
   if (!data.activity_group_id) {
-    throw new ValidationError('activity_group_id connot be null', res);
+    throw new ValidationError('activity_group_id cannot be null', res);
   }
 
   const todo = await todoModel.createTodo(data);
+
+  todo[1][0].is_active = data.is_active === undefined ? true : data.is_active;
 
   successRespon(todo[1][0], res, 201);
 }
@@ -47,7 +49,7 @@ export async function update(
 
   // data validations
   // if (!data.title) {
-  //   throw new ValidationError('title connot be null', res);
+  //   throw new ValidationError('title cannot be null', res);
   // }
 
   const todo = await todoModel.updateTodo(data, id);

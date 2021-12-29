@@ -16,7 +16,7 @@ export async function store(req: IncomingMessage, res: ServerResponse) {
 
   // data validations
   if (!data.title) {
-    throw new ValidationError('title connot be null', res);
+    throw new ValidationError('title cannot be null', res);
   }
 
   const activity = await activityModel.createActivity(data);
@@ -43,7 +43,7 @@ export async function update(
 
   // data validations
   if (!data.title) {
-    throw new ValidationError('title connot be null', res);
+    throw new ValidationError('title cannot be null', res);
   }
 
   const activity = await activityModel.updateActivity(data, id);

@@ -1,4 +1,4 @@
-export const port = process.env.PORT || '8090';
+export const port = process.env.PORT || '3030';
 export const host = process.env.MYSQL_HOST || '127.0.0.1';
 export const user = process.env.MYSQL_USER || 'root';
 export const mysqlPort = process.env.MYSQL_PORT || 3306;

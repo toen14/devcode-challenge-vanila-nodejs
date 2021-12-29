@@ -2,15 +2,14 @@ import sql from '../database-connection';
 import {tableName} from '../../models/activity-models';
 
 export function up(): void {
-  sql.execute(
-    `CREATE TABLE ${tableName} (
+  sql.query(
+    ` DROP TABLE IF EXISTS ${tableName}; CREATE TABLE ${tableName} (
         id int NOT NULL AUTO_INCREMENT,
         email varchar(255),
         title varchar(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-        deleted_at TIMESTAMP DEFAULT NULL,
-        UNIQUE (email),
+        deleted_at varchar(255) DEFAULT NULL,
         PRIMARY KEY (id)
     )`,
     err => {
@@ -24,7 +23,7 @@ export function up(): void {
 }
 
 export function down(): void {
-  sql.execute(`DROP TABLE ${tableName}`, err => {
+  sql.query(`DROP TABLE ${tableName}`, err => {
     if (err) {
       console.log(`drop table ${tableName} failed`, err);
     } else {

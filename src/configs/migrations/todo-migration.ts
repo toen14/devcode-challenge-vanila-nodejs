@@ -2,18 +2,17 @@ import sql from '../database-connection';
 import {tableName} from '../../models/todo-models';
 
 export function up(): void {
-  sql.execute(
-    `CREATE TABLE ${tableName} (
+  sql.query(
+    `DROP TABLE IF EXISTS ${tableName}; CREATE TABLE ${tableName} (
       id int NOT NULL AUTO_INCREMENT,
       activity_group_id int,
       title varchar(255),
-      is_active varchar(255) DEFAULT 'true',
+      is_active BOOLEAN DEFAULT TRUE,
       priority varchar(255) DEFAULT 'very-high',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-      deleted_at TIMESTAMP DEFAULT NULL,
-      PRIMARY KEY (id),
-      FOREIGN KEY (activity_group_id) REFERENCES activitys(id)
+      deleted_at varchar(255) DEFAULT NULL,
+      PRIMARY KEY (id)
     )`,
     err => {
       if (err) {
@@ -26,7 +25,7 @@ export function up(): void {
 }
 
 export function down(): void {
-  sql.execute(`DROP TABLE ${tableName}`, err => {
+  sql.query(`DROP TABLE ${tableName}`, err => {
     if (err) {
       console.log(`drop table ${tableName} failed`, err);
     } else {
