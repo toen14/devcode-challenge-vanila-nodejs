@@ -11,7 +11,7 @@ export function up(): void {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
         deleted_at varchar(255) DEFAULT NULL,
         PRIMARY KEY (id)
-    )`,
+    ) ENGINE=MEMORY`,
     err => {
       if (err) {
         console.log(`create table ${tableName} failed`, err);

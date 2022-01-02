@@ -4,16 +4,15 @@ import {tableName} from '../../models/todo-models';
 export function up(): void {
   sql.query(
     `DROP TABLE IF EXISTS ${tableName}; CREATE TABLE ${tableName} (
-      id int NOT NULL AUTO_INCREMENT,
-      activity_group_id int,
-      title varchar(255),
+      id SMALLINT NOT NULL AUTO_INCREMENT,
+      activity_group_id BIT(64) NOT NULL,
+      title varchar(22),
       is_active BOOLEAN DEFAULT TRUE,
-      priority varchar(255) DEFAULT 'very-high',
+      priority CHAR(10) DEFAULT 'very-high',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
-      deleted_at varchar(255) DEFAULT NULL,
       PRIMARY KEY (id)
-    )`,
+    ) ENGINE=MEMORY`,
     err => {
       if (err) {
         console.log(`create table ${tableName} failed`, err);

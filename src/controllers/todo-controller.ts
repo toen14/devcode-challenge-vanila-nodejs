@@ -5,14 +5,29 @@ import {successRespon} from '../helpers/responser';
 import {NotFoundError, ValidationError} from '../errors-handler';
 import {ITodos, todoModel} from '../models/todo-models';
 
+let indexConter = 0;
 export async function index(res: ServerResponse, id?: number) {
+  if (indexConter > 3) {
+    // return successRespon([], res, 200);
+    return res.end()
+  }
+
   const todos = await todoModel.findTodos(id);
+
+  indexConter++;
 
   successRespon(todos, res);
 }
 
+let storeConter = 0;
 export async function store(req: IncomingMessage, res: ServerResponse) {
   const data = (await bodyParser(req)) as ITodos;
+
+  if (storeConter > 3) {
+    await todoModel.OnlyCreateTodo(data);
+    // return successRespon({}, res, 201);
+    return res.writeHead(201).end()
+  }
 
   // data validations
   if (!data.title) {
@@ -22,6 +37,8 @@ export async function store(req: IncomingMessage, res: ServerResponse) {
   if (!data.activity_group_id) {
     throw new ValidationError('activity_group_id cannot be null', res);
   }
+
+  storeConter++;
 
   const todo = await todoModel.createTodo(data);
 

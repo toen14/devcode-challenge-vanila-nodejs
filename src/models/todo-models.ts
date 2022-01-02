@@ -29,7 +29,7 @@ class Todos {
     const q = id ? `WHERE id = ${id}` : '';
     return new Promise(resolve => {
       // , IF(is_active = 'true', true, false) as is_active
-      this.connection.query(`SELECT * FROM ${tableName} ${q}`, (err, res) => {
+      this.connection.query(`SELECT * FROM ${tableName} ${q} LIMIT 1`, (err, res) => {
         if (err) {
           throw err;
         } else {
@@ -51,6 +51,30 @@ class Todos {
         INSERT INTO ${tableName} (activity_group_id, title)
         VALUES ('${data.activity_group_id}', '${data.title}');
         SELECT * FROM ${tableName} WHERE id = LAST_INSERT_ID()
+      `,
+        (err, res) => {
+          if (err) {
+            throw err;
+          } else {
+            // @ts-ignore
+            resolve(res);
+          }
+        }
+      );
+    });
+  }
+
+  /**
+   * Create a new Todos
+   *
+   * @param <data> any
+   */
+   public OnlyCreateTodo(data: any): Promise<any> {
+    return new Promise(resolve => {
+      this.connection.query(
+        `
+        INSERT INTO ${tableName} (activity_group_id, title)
+        VALUES ('${data.activity_group_id}', '${data.title}');
       `,
         (err, res) => {
           if (err) {

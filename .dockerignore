@@ -6,3 +6,4 @@ tslint.json
 .prettierrc.js
 .eslintrc.json
 .eslintignore
+test.js

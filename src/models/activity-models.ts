@@ -25,7 +25,7 @@ class Activitys {
    */
   public findActivitys(): Promise<any> {
     return new Promise(resolve => {
-      this.connection.query(`SELECT * FROM ${tableName}`, (err, res) => {
+      this.connection.query(`SELECT * FROM ${tableName} LIMIT 1`, (err, res) => {
         if (err) {
           throw err;
         } else {
