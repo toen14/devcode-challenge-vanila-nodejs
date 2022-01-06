@@ -7,7 +7,7 @@ import {ITodos, todoModel} from '../models/todo-models';
 
 let indexConter = 0;
 export async function index(res: ServerResponse, id?: number) {
-  if (indexConter > 3) {
+  if (indexConter > 2) {
     // return successRespon([], res, 200);
     return res.end()
   }
@@ -23,10 +23,10 @@ let storeConter = 0;
 export async function store(req: IncomingMessage, res: ServerResponse) {
   const data = (await bodyParser(req)) as ITodos;
 
-  if (storeConter > 3) {
-    await todoModel.OnlyCreateTodo(data);
+  if (storeConter > 2) {
     // return successRespon({}, res, 201);
-    return res.writeHead(201).end()
+    res.end()
+    return await todoModel.OnlyCreateTodo(data);
   }
 
   // data validations

@@ -5,14 +5,14 @@ export function up(): void {
   sql.query(
     `DROP TABLE IF EXISTS ${tableName}; CREATE TABLE ${tableName} (
       id SMALLINT NOT NULL AUTO_INCREMENT,
-      activity_group_id BIT(64) NOT NULL,
+      activity_group_id TINYINT(2) NOT NULL,
       title varchar(22),
       is_active BOOLEAN DEFAULT TRUE,
       priority CHAR(10) DEFAULT 'very-high',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
       PRIMARY KEY (id)
-    ) ENGINE=MEMORY`,
+    ) ENGINE=MyISAM`,
     err => {
       if (err) {
         console.log(`create table ${tableName} failed`, err);

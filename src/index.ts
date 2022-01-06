@@ -7,8 +7,8 @@ import {handler} from './errors-handler/handler';
 
 const server = createServer();
 
-server.on('request', activityRouter);
 server.on('request', todoRouter);
+server.on('request', activityRouter);
 
 // handling errors
 handler();
